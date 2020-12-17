@@ -9,23 +9,48 @@
   </head>
 
   <body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <header class="Weather Dashboard">
-        <h1 class="title"> Weather Dashboard</h1>
-
-    </header>
     <div class="container">
-        <div id="city" class="city search">Search for a city</div>
-        <div id="info" class="current">Current Forecast</div>
-        <div id="weather" class="week">5 day Forecast</div>
-
+      <h1>Weather Dashboard</h1>
     </div>
+    <form id="city-form">
+      <label for="city-input">Search for a city</label>
+      <input type="text" id="city-input" /><br />
+      <input id="find-city" type="submit" value="Search" />
+    </form>
+    <div id="city-view"></div>
+    <div class="city"></div>
+    <div class="wind"></div>
+    <div class="humidity"></div>
+    <div class="temp"></div>
+    <div class="UV"></div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      $("#find-city").on("click", function (event) {
+        event.preventDefault();
+        var city = $("#city-input").val();
+        var APIKey = "c733248e0d7c01fa84f3849f5042a872";
+        var queryURL =
+          "https://api.openweathermap.org/data/2.5/weather?q=Portland,Oregon&units=imperial&appid=" +
+          APIKey;
 
+        $.ajax({
+          url: queryURL,
+          method: "GET",
+        }).then(function (response) {
+          console.log($(response));
+          
 
-    </div>
- 
- 
+          $(".city").append(JSON.stringify("City;" + response.name));
+          $(".wind").append(JSON.stringify("Wind: " + response.wind.speed));
+          $(".humidity").append(
+            JSON.stringify("Humidity: " + response.main.humidity + "%")
+          );
+          $(".temp").append(
+            JSON.stringify("Temp: " + response.main.temp + "°F")
+          );
+        });
+      });
+    </script>
   </body>
 </html>
