@@ -3,7 +3,24 @@
     font-size: 24px;
     text-align: center;
 }
+
 .city{ 
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    text-align: center;
+      
+}
+.date{ 
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    text-align: center;     
+}
+.icon{ 
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    text-align: center;     
+}
+.temp{ 
     font-family: "Open Sans", sans-serif;
     font-size: 16px;
     text-align: center;
@@ -20,12 +37,7 @@
     text-align: center;
       
 }
-.temp{ 
-    font-family: "Open Sans", sans-serif;
-    font-size: 16px;
-    text-align: center;
-      
-}
+
 .UV{ 
     font-family: "Open Sans", sans-serif;
     font-size: 16px;
@@ -33,23 +45,31 @@
       
 }
 
-.container{ 
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 28px;
-    text-align: center;
-}
 
-
-#info{ 
+.day-5-forecast{
     font-family: "Open Sans", sans-serif;
     font-size: 16px;
-    text-align: center;
-      
+    text-align: left
 }
-#weather{ 
+.day-4-forecast{
     font-family: "Open Sans", sans-serif;
     font-size: 16px;
-    text-align: center;
-       
+    text-align: center
 }
+.day-3-forecast{
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    text-align: center
+}
+.day-2-forecast{
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    text-align: center
+}
+.day-1-forecast{
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    text-align: center
+}
+
 

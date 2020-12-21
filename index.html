@@ -17,37 +17,103 @@
       <input type="text" id="city-input" /><br />
       <input id="find-city" type="submit" value="Search" />
     </form>
-    <div id="city-view"></div>
-    <div class="city"></div>
-    <div class="wind"></div>
-    <div class="humidity"></div>
-    <div class="temp"></div>
-    <div class="UV"></div>
+    <div id="city-view">
+      <div class="city"></div>
+      <div class="date"></div>
+      <div class="icon"></div>
+      <div class="temp"></div>
+      <div class="wind"></div>
+      <div class="humidity"></div>
+      <div class="UV"></div>
+    </div>
+    <div id="day-5-forecast">
+      <div class="day-5-date">date </div>
+      <div class="day-5-icon">icon</div>
+      <div class="day-5-temp-max">max</div>
+      <div class="day-5-temp-min">min</div>
+      <div class="day-5-humidity">hu</div>
+      <div class="day-4-date"></div>
+      <div class="day-4-icon"></div>
+      <div class="day-4-temp"></div>
+      <div class="day-4-humidity"></div>
+      <div class="day-3-date"></div>
+      <div class="day-3-icon"></div>
+      <div class="day-3-temp"></div>
+      <div class="day-3-humidity"></div>
+      <div class="day-2-date"></div>
+      <div class="day-2-icon"></div>
+      <div class="day-2-temp"></div>
+      <div class="day-2-humidity"></div>
+      <div class="day-1-date"></div>
+      <div class="day-1-icon"></div>
+      <div class="day-1-temp"></div>
+      <div class="day-1-humidity"></div>
+    </div>
+
+    <div id="previous-search">
+      <div class="last"></div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
       $("#find-city").on("click", function (event) {
         event.preventDefault();
         var city = $("#city-input").val();
-        var APIKey = "c733248e0d7c01fa84f3849f5042a872";
         var queryURL =
-          "https://api.openweathermap.org/data/2.5/weather?q=Portland,Oregon&units=imperial&appid=" +
-          APIKey;
+          "http://api.weatherstack.com/current?access_key=3aface5532f1f47c65a63094e3506f92&query=" +
+          city +
+          "&units=f";
 
         $.ajax({
           url: queryURL,
           method: "GET",
         }).then(function (response) {
-          console.log($(response));
-          
-
-          $(".city").append(JSON.stringify("City;" + response.name));
-          $(".wind").append(JSON.stringify("Wind: " + response.wind.speed));
-          $(".humidity").append(
-            JSON.stringify("Humidity: " + response.main.humidity + "%")
+          $(".city").append(JSON.stringify("City: " + response.location.name));
+          $(".date").append(
+            JSON.stringify("Date: " + response.location.localtime)
           );
+          // need help displaying the icon not url...
+          // $(".icon").append(JSON.stringify("icon: " + response.current.weather_icons));
           $(".temp").append(
-            JSON.stringify("Temp: " + response.main.temp + "°F")
+            JSON.stringify("Temp: " + response.current.temperature + "°F")
+          );
+          $(".wind").append(
+            JSON.stringify("Wind: " + response.current.wind_speed)
+          );
+          $(".humidity").append(
+            JSON.stringify("Humidity: " + response.current.humidity + "%")
+          );
+          $(".UV").append(JSON.stringify("UV: " + response.current.uv_index));
+        });
+
+        event.preventDefault();
+        var city = $("#city-input").val();
+        var a = [];
+        var queryURL =
+          "http://api.openweathermap.org/data/2.5/forecast?q=" +
+          city +
+          "&appid=33c92b0552e0eea71460739025382726&units=imperial";
+   
+        $.ajax({
+          url: queryURL,
+          method: "GET",
+        }).then(function (response) {
+          console.log(response);
+// not posting  to html
+          $(".day-5-date").append(
+            JSON.stringify("day-5-date:" + response[1].dt_text)
+          );
+          $(".day-5-icon").append(
+            JSON.stringify(".day-5-icon:" + response[1] + (0.0).icon)
+          );
+          $(".day-5-temp-max").append(
+            JSON.stringify("day-5-temp:" + response[1].main.temp_max +"°F")
+          );
+          $(".day-5-temp-min").append(
+            JSON.stringify("day-5-temp:" + response[1].main.temp_min + "°F")
+          );
+          $(".day-5-humidity").append(
+            JSON.stringify("day-5-humidity: " + response[1].main.humidity + "%")
           );
         });
       });
