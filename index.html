@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
     <link rel="stylesheet" type="text/css" href="style.css" />
 
     <title>Weather Dashboard</title>
@@ -17,6 +21,7 @@
       <input type="text" id="city-input" /><br />
       <input id="find-city" type="submit" value="Search" />
     </form>
+    <div id="searchHistory"></div>
     <div id="city-view">
       <div class="city"></div>
       <div class="date"></div>
@@ -26,35 +31,49 @@
       <div class="humidity"></div>
       <div class="UV"></div>
     </div>
-    <div id="day-5-forecast">
-      <div class="day-5-date">date </div>
-      <div class="day-5-icon">icon</div>
-      <div class="day-5-temp-max">max</div>
-      <div class="day-5-temp-min">min</div>
-      <div class="day-5-humidity">hu</div>
-      <div class="day-4-date"></div>
-      <div class="day-4-icon"></div>
-      <div class="day-4-temp"></div>
-      <div class="day-4-humidity"></div>
-      <div class="day-3-date"></div>
-      <div class="day-3-icon"></div>
-      <div class="day-3-temp"></div>
-      <div class="day-3-humidity"></div>
-      <div class="day-2-date"></div>
-      <div class="day-2-icon"></div>
-      <div class="day-2-temp"></div>
-      <div class="day-2-humidity"></div>
-      <div class="day-1-date"></div>
-      <div class="day-1-icon"></div>
-      <div class="day-1-temp"></div>
-      <div class="day-1-humidity"></div>
+    <div class="row">
+      <div class="col-sm-2">
+        <div class="day-5-date"></div>
+        <div class="day-5-icon"></div>
+        <div class="day-5-temp-max"></div>
+        <div class="day-5-temp-min"></div>
+        <div class="day-5-humidity"></div>
+      </div>
+      <div class="col-sm-2">
+        <div class="day-4-date"></div>
+        <div class="day-4-icon"></div>
+        <div class="day-4-temp-max"></div>
+        <div class="day-4-temp-min"></div>
+        <div class="day-4-humidity"></div>
+      </div>
+      <div class="col-sm-2">
+        <div class="day-3-date"></div>
+        <div class="day-3-icon"></div>
+        <div class="day-3-temp-max"></div>
+        <div class="day-3-temp-min"></div>
+        <div class="day-3-humidity"></div>
+      </div>
+      <div class="col-sm-2">
+        <div class="day-2-date"></div>
+        <div class="day-2-icon"></div>
+        <div class="day-2-temp-max"></div>
+        <div class="day-2-temp-min"></div>
+        <div class="day-2-humidity"></div>
+      </div>
+      <div class="col-sm-2">
+        <div class="day-1-date"></div>
+        <div class="day-1-icon"></div>
+        <div class="day-1-temp-max"></div>
+        <div class="day-1-temp-min"></div>
+        <div class="day-1-humidity"></div>
+      </div>
     </div>
-
     <div id="previous-search">
       <div class="last"></div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
     <script type="text/javascript">
       $("#find-city").on("click", function (event) {
         event.preventDefault();
@@ -68,53 +87,65 @@
           url: queryURL,
           method: "GET",
         }).then(function (response) {
-          $(".city").append(JSON.stringify("City: " + response.location.name));
-          $(".date").append(
-            JSON.stringify("Date: " + response.location.localtime)
-          );
-          // need help displaying the icon not url...
-          // $(".icon").append(JSON.stringify("icon: " + response.current.weather_icons));
-          $(".temp").append(
-            JSON.stringify("Temp: " + response.current.temperature + "°F")
-          );
-          $(".wind").append(
-            JSON.stringify("Wind: " + response.current.wind_speed)
-          );
-          $(".humidity").append(
-            JSON.stringify("Humidity: " + response.current.humidity + "%")
-          );
-          $(".UV").append(JSON.stringify("UV: " + response.current.uv_index));
+          $(".city").append("City:" + response.location.name);
+          $(".date").append("Date:" + response.location.localtime);
+          $(".icon").append(("icon:" + response.current.weather_icons));
+          $(".temp").append("Temp: " + response.current.temperature + "°F");
+          $(".wind").append("Wind: " + response.current.wind_speed);
+          $(".humidity").append("Humidity: " + response.current.humidity + "%");
+          $(".UV").append("UV: " + response.current.uv_index);
         });
+
+        // var recentSearches = [];
+        // function searchFunction(data) {
+        //   recentSearches.push($("#city-input").val());
+        //   $("#city-input").val("");
+        //   $("#searchHistory").text("");
+
+        //   $.each(recentSearches, function (index, value) {
+        //     $("#searchHistory").append("#searchHistory");
+        //   });
+        // }
+        // console.log(searchFunction(data));
 
         event.preventDefault();
         var city = $("#city-input").val();
-        var a = [];
         var queryURL =
           "http://api.openweathermap.org/data/2.5/forecast?q=" +
           city +
           "&appid=33c92b0552e0eea71460739025382726&units=imperial";
-   
+
         $.ajax({
           url: queryURL,
           method: "GET",
         }).then(function (response) {
           console.log(response);
-// not posting  to html
-          $(".day-5-date").append(
-            JSON.stringify("day-5-date:" + response[1].dt_text)
-          );
-          $(".day-5-icon").append(
-            JSON.stringify(".day-5-icon:" + response[1] + (0.0).icon)
-          );
-          $(".day-5-temp-max").append(
-            JSON.stringify("day-5-temp:" + response[1].main.temp_max +"°F")
-          );
-          $(".day-5-temp-min").append(
-            JSON.stringify("day-5-temp:" + response[1].main.temp_min + "°F")
-          );
-          $(".day-5-humidity").append(
-            JSON.stringify("day-5-humidity: " + response[1].main.humidity + "%")
-          );
+
+          $(".day-5-date").append(response.list[1].dt_txt);
+          $(".day-5-icon").append(response.list[1] + (0.0).icon);
+          $(".day-5-temp-max").append(response.list[1].main.temp_max + "°F");
+          $(".day-5-temp-min").append(response.list[1].main.temp_min + "°F");
+          $(".day-5-humidity").append(response.list[1].main.humidity + "%");
+          $(".day-4-date").append(response.list[2].dt_txt);
+          $(".day-4-icon").append(response.list[2] + (0.0).icon);
+          $(".day-4-temp-max").append(response.list[2].main.temp_max + "°F");
+          $(".day-4-temp-min").append(response.list[2].main.temp_min + "°F");
+          $(".day-4-humidity").append(response.list[2].main.humidity + "%");
+          $(".day-3-date").append(response.list[3].dt_txt);
+          $(".day-3-icon").append(response.list[3] + (0.0).icon);
+          $(".day-3-temp-max").append(response.list[3].main.temp_max + "°F");
+          $(".day-3-temp-min").append(response.list[3].main.temp_min + "°F");
+          $(".day-3-humidity").append(response.list[3].main.humidity + "%");
+          $(".day-2-date").append(response.list[4].dt_txt);
+          $(".day-2-icon").append(response.list[4] + (0.0).icon);
+          $(".day-2-temp-max").append(response.list[4].main.temp_max + "°F");
+          $(".day-2-temp-min").append(response.list[4].main.temp_min + "°F");
+          $(".day-2-humidity").append(response.list[4].main.humidity + "%");
+          $(".day-1-date").append(response.list[5].dt_txt);
+          $(".day-1-icon").append(response.list[5] + (0.0).icon);
+          $(".day-1-temp-max").append(response.list[5].main.temp_max + "°F");
+          $(".day-1-temp-min").append(response.list[5].main.temp_min + "°F");
+          $(".day-1-humidity").append(response.list[5].main.humidity + "%");
         });
       });
     </script>
