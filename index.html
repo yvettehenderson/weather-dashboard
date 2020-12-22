@@ -25,7 +25,7 @@
     <div id="city-view">
       <div class="city"></div>
       <div class="date"></div>
-      <div class="icon"></div>
+      <img src="" class="icon">
       <div class="temp"></div>
       <div class="wind"></div>
       <div class="humidity"></div>
@@ -34,35 +34,35 @@
     <div class="row">
       <div class="col-sm-2">
         <div class="day-5-date"></div>
-        <div class="day-5-icon"></div>
+        <img src="" class="day-5-icon">
         <div class="day-5-temp-max"></div>
         <div class="day-5-temp-min"></div>
         <div class="day-5-humidity"></div>
       </div>
       <div class="col-sm-2">
         <div class="day-4-date"></div>
-        <div class="day-4-icon"></div>
+        <img src="" class="day-5-icon">
         <div class="day-4-temp-max"></div>
         <div class="day-4-temp-min"></div>
         <div class="day-4-humidity"></div>
       </div>
       <div class="col-sm-2">
         <div class="day-3-date"></div>
-        <div class="day-3-icon"></div>
+        <img src="" class="day-3-icon">
         <div class="day-3-temp-max"></div>
         <div class="day-3-temp-min"></div>
         <div class="day-3-humidity"></div>
       </div>
       <div class="col-sm-2">
         <div class="day-2-date"></div>
-        <div class="day-2-icon"></div>
+        <img src="" class="day-3-icon">
         <div class="day-2-temp-max"></div>
         <div class="day-2-temp-min"></div>
         <div class="day-2-humidity"></div>
       </div>
       <div class="col-sm-2">
         <div class="day-1-date"></div>
-        <div class="day-1-icon"></div>
+        <img src="" class="day-3-icon">
         <div class="day-1-temp-max"></div>
         <div class="day-1-temp-min"></div>
         <div class="day-1-humidity"></div>
@@ -81,19 +81,19 @@
         var queryURL =
           "http://api.weatherstack.com/current?access_key=3aface5532f1f47c65a63094e3506f92&query=" +
           city +
-          "&units=f";
+          "&units=f";  
 
         $.ajax({
           url: queryURL,
           method: "GET",
         }).then(function (response) {
-          $(".city").append("City:" + response.location.name);
-          $(".date").append("Date:" + response.location.localtime);
-          $(".icon").append(("icon:" + response.current.weather_icons));
-          $(".temp").append("Temp: " + response.current.temperature + "°F");
-          $(".wind").append("Wind: " + response.current.wind_speed);
-          $(".humidity").append("Humidity: " + response.current.humidity + "%");
-          $(".UV").append("UV: " + response.current.uv_index);
+          $(".city").append(response.location.name);
+          $(".date").append(response.location.localtime);
+          $(".icon").append(response.current.weather_icons);
+          $(".temp").append( response.current.temperature + "°F");
+          $(".wind").append(response.current.wind_speed);
+          $(".humidity").append( response.current.humidity + "%");
+          $(".UV").append( response.current.uv_index);
         });
 
         // var recentSearches = [];
@@ -114,7 +114,7 @@
           "http://api.openweathermap.org/data/2.5/forecast?q=" +
           city +
           "&appid=33c92b0552e0eea71460739025382726&units=imperial";
-
+        
         $.ajax({
           url: queryURL,
           method: "GET",
@@ -122,27 +122,27 @@
           console.log(response);
 
           $(".day-5-date").append(response.list[1].dt_txt);
-          $(".day-5-icon").append(response.list[1] + (0.0).icon);
+          $(".day-5-icon").attr("scr","http://openweathermap.org/img/w/"+response.list[1] + (0.0).icon+".png");
           $(".day-5-temp-max").append(response.list[1].main.temp_max + "°F");
           $(".day-5-temp-min").append(response.list[1].main.temp_min + "°F");
           $(".day-5-humidity").append(response.list[1].main.humidity + "%");
           $(".day-4-date").append(response.list[2].dt_txt);
-          $(".day-4-icon").append(response.list[2] + (0.0).icon);
+          $(".day-4-icon").attr("scr","http://openweathermap.org/img/w/"+response.list[2] + (0.0).icon +".png");
           $(".day-4-temp-max").append(response.list[2].main.temp_max + "°F");
           $(".day-4-temp-min").append(response.list[2].main.temp_min + "°F");
           $(".day-4-humidity").append(response.list[2].main.humidity + "%");
           $(".day-3-date").append(response.list[3].dt_txt);
-          $(".day-3-icon").append(response.list[3] + (0.0).icon);
+          $(".day-3-icon").attr("scr","http://openweathermap.org/img/w/"+response.list[3] + (0.0).icon +".png");
           $(".day-3-temp-max").append(response.list[3].main.temp_max + "°F");
           $(".day-3-temp-min").append(response.list[3].main.temp_min + "°F");
           $(".day-3-humidity").append(response.list[3].main.humidity + "%");
           $(".day-2-date").append(response.list[4].dt_txt);
-          $(".day-2-icon").append(response.list[4] + (0.0).icon);
+          $(".day-2-icon").attr("scr","http://openweathermap.org/img/w/"+ response.list[4] + (0.0).icon + ".png");
           $(".day-2-temp-max").append(response.list[4].main.temp_max + "°F");
           $(".day-2-temp-min").append(response.list[4].main.temp_min + "°F");
           $(".day-2-humidity").append(response.list[4].main.humidity + "%");
           $(".day-1-date").append(response.list[5].dt_txt);
-          $(".day-1-icon").append(response.list[5] + (0.0).icon);
+          $(".day-1-icon").attr("scr","http://openweathermap.org/img/w/"+response.list[5] + (0.0).icon + ".png");
           $(".day-1-temp-max").append(response.list[5].main.temp_max + "°F");
           $(".day-1-temp-min").append(response.list[5].main.temp_min + "°F");
           $(".day-1-humidity").append(response.list[5].main.humidity + "%");
