@@ -103,7 +103,7 @@
         event.preventDefault();
         var city = $("#city-input").val();
         var queryURL =
-          "http://api.openweathermap.org/data/2.5/forecast?q=" +
+          "https://api.openweathermap.org/data/2.5/forecast?q=" +
           city +
           "&appid=33c92b0552e0eea71460739025382726&units=imperial";
 
@@ -114,13 +114,13 @@
           console.log(response);
           $(".icon").attr(
             "src",
-            "http://openweathermap.org/img/w/"+response.list[0].weather[0].icon+
+            "https://openweathermap.org/img/w/"+response.list[0].weather[0].icon+
               ".png");
         
           $(".day-5-date").append(response.list[8].dt_txt);
           $(".day-5-icon").attr(
             "src",
-            "http://openweathermap.org/img/w/"+response.list[8].weather[0].icon+
+            "https://openweathermap.org/img/w/"+response.list[8].weather[0].icon+
               ".png"
           );
           $(".day-5-temp-max").append(
@@ -135,7 +135,7 @@
           $(".day-4-date").append(response.list[16].dt_txt);
           $(".day-4-icon").attr(
             "src",
-            "http://openweathermap.org/img/w/"+response.list[16].weather[0].icon+
+            "https://openweathermap.org/img/w/"+response.list[16].weather[0].icon+
               ".png");
           $(".day-4-temp-max").append(
             "Max Temp:" + response.list[16].main.temp_max + "°F"
@@ -149,7 +149,7 @@
           $(".day-3-date").append(response.list[24].dt_txt);
           $(".day-3-icon").attr(
             "src",
-            "http://openweathermap.org/img/w/"+response.list[24].weather[0].icon+
+            "https://openweathermap.org/img/w/"+response.list[24].weather[0].icon+
               ".png");
           $(".day-3-temp-max").append(
             "Max Temp:" + response.list[24].main.temp_max + "°F"
@@ -163,7 +163,7 @@
           $(".day-2-date").append(response.list[32].dt_txt);
           $(".day-2-icon").attr(
             "src",
-            "http://openweathermap.org/img/w/"+response.list[32].weather[0].icon+
+            "https://openweathermap.org/img/w/"+response.list[32].weather[0].icon+
               ".png");
           $(".day-2-temp-max").append(
             "Max Temp:" + response.list[32].main.temp_max + "°F"
@@ -177,7 +177,7 @@
           $(".day-1-date").append(response.list[39].dt_txt);
           $(".day-1-icon").attr(
             "src",
-            "http://openweathermap.org/img/w/"+response.list[39].weather[0].icon+
+            "https://openweathermap.org/img/w/"+response.list[39].weather[0].icon+
               ".png");
           $(".day-1-temp-max").append(
             "Max Temp:" + response.list[39].main.temp_max + "°F"
