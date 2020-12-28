@@ -91,10 +91,12 @@
           $(".wind").append("Wind Speed:" + response.current.wind_speed);
           $(".humidity").append("Humidity:" + response.current.humidity + "%");
           $(".UV").append("UV Index:" + response.current.uv_index);
-          if (response.current.uv_index < 6) {
-            $(".uv").css("greenScore");
+          if (response.current.uv_index >=3) {
+            $(".uv").css(".greenScore");
+          } else if (response.current.uv_index >= 4 ) {
+            $(".uv").css(".orangeScore");
           } else if (response.current.uv_index >= 6) {
-            $(".uv").css("redscore");
+            $(".uv").css(".redScore");
           }
         });
 

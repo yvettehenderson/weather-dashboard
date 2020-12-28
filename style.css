@@ -43,6 +43,9 @@ font-size: 8px;
 }
 .redScore{
     color: #FF0000;
+} 
+.redOrange{
+    color:orange;
 }   
 .greenScore{
     color: #33CC33;
