@@ -21,7 +21,6 @@
       <input type="text" id="city-input" /><br />
       <input id="find-city" type="submit" value="Search" />
     </form>
-    <div id="searchHistory"></div>
     <div id="city-view">
       <div class="city"></div>
       <div class="date"></div>
@@ -68,9 +67,7 @@
         <div class="day-1-humidity"></div>
       </div>
     </div>
-    <div id="previous-search">
-      <div class="last"></div>
-    </div>
+    <div id="previous-search">Last Searched</div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
@@ -94,10 +91,11 @@
           $(".wind").append("Wind Speed:" + response.current.wind_speed);
           $(".humidity").append("Humidity:" + response.current.humidity + "%");
           $(".UV").append("UV Index:" + response.current.uv_index);
-        //   if(response.current.uv_index < 6){
-        //     change text to red ;
-        // } else { text is green}
-        //   }
+          if (response.current.uv_index < 6) {
+            $(".uv").css("greenScore");
+          } else if (response.current.uv_index >= 6) {
+            $(".uv").css("redscore");
+          }
         });
 
         event.preventDefault();
@@ -114,13 +112,16 @@
           console.log(response);
           $(".icon").attr(
             "src",
-            "https://openweathermap.org/img/w/"+response.list[0].weather[0].icon+
-              ".png");
-        
+            "https://openweathermap.org/img/w/" +
+              response.list[0].weather[0].icon +
+              ".png"
+          );
+
           $(".day-5-date").append(response.list[8].dt_txt);
           $(".day-5-icon").attr(
             "src",
-            "https://openweathermap.org/img/w/"+response.list[8].weather[0].icon+
+            "https://openweathermap.org/img/w/" +
+              response.list[8].weather[0].icon +
               ".png"
           );
           $(".day-5-temp-max").append(
@@ -135,8 +136,10 @@
           $(".day-4-date").append(response.list[16].dt_txt);
           $(".day-4-icon").attr(
             "src",
-            "https://openweathermap.org/img/w/"+response.list[16].weather[0].icon+
-              ".png");
+            "https://openweathermap.org/img/w/" +
+              response.list[16].weather[0].icon +
+              ".png"
+          );
           $(".day-4-temp-max").append(
             "Max Temp:" + response.list[16].main.temp_max + "°F"
           );
@@ -149,8 +152,10 @@
           $(".day-3-date").append(response.list[24].dt_txt);
           $(".day-3-icon").attr(
             "src",
-            "https://openweathermap.org/img/w/"+response.list[24].weather[0].icon+
-              ".png");
+            "https://openweathermap.org/img/w/" +
+              response.list[24].weather[0].icon +
+              ".png"
+          );
           $(".day-3-temp-max").append(
             "Max Temp:" + response.list[24].main.temp_max + "°F"
           );
@@ -163,8 +168,10 @@
           $(".day-2-date").append(response.list[32].dt_txt);
           $(".day-2-icon").attr(
             "src",
-            "https://openweathermap.org/img/w/"+response.list[32].weather[0].icon+
-              ".png");
+            "https://openweathermap.org/img/w/" +
+              response.list[32].weather[0].icon +
+              ".png"
+          );
           $(".day-2-temp-max").append(
             "Max Temp:" + response.list[32].main.temp_max + "°F"
           );
@@ -177,8 +184,10 @@
           $(".day-1-date").append(response.list[39].dt_txt);
           $(".day-1-icon").attr(
             "src",
-            "https://openweathermap.org/img/w/"+response.list[39].weather[0].icon+
-              ".png");
+            "https://openweathermap.org/img/w/" +
+              response.list[39].weather[0].icon +
+              ".png"
+          );
           $(".day-1-temp-max").append(
             "Max Temp:" + response.list[39].main.temp_max + "°F"
           );
@@ -190,17 +199,16 @@
           );
         });
       });
-      var recentSearches = [];
-      function searchFunction(data) {
-        recentSearches.push($("#city-input").val());
-        $("#city-input").val("");
-      
+      // let recentSearches = [];
+      // function searchFunction(data) {
+      //   recentSearches.push($("#city-input").val());
+      //   $("#previous-search").val('');
 
-        $.each(recentSearches, function (index, value) {
-          $("#city-input").append("#last");
-        });
-      }
-      searchFunction();
+      //   $.each(recentSearches, function (index, value) {
+      //     $("#city-input").append($("#previous-search"));
+      //      });
+      // }
+      // searchFunction();
     </script>
   </body>
 </html>
